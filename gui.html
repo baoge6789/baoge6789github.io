@@ -46,7 +46,7 @@
             transition: background-color 0.3s; /* 添加过渡效果 */
         }
         button:hover {
-            background-color: #9400D3; /* 悬停时变深的绿色 */
+            background-color: #9400D3; /* 悬停时变暗紫色 */
         }
     </style>
 </head>
@@ -54,24 +54,59 @@
 
 <div class="card">
     <h1>挪车信息</h1>
-    <p id="info">车牌号：鲁JZG005<br>手机号：18753855998</p>
+    <p id="info">车牌号：鲁J9Y561<br>手机号：13465382753</p>
     <div class="button-container">
         <button id="call">一键呼叫</button>
-        <button id="sms">发送短信通知</button>
+        <button id="sms">发送短信</button>
+        <button id="wxNotify">微信通知</button> <!-- 新增按钮 -->
     </div>
 </div>
 
 <script>
 // 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = "18753855998"; // 直接使用手机号
+    const phone = "13465382753"; // 直接使用手机号
     window.location.href = `tel:${phone}`;
 };
 
 // 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = "18753855998"; // 直接使用手机号
+    const phone = "13465382753"; // 直接使用手机号
     window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
+};
+
+// 微信通知车主
+document.getElementById('wxNotify').onclick = function() {
+    const wxpusherAppToken = 'AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb '; // 替换为您的 Wxpusher 应用令牌
+    const wxpusherUIDs = ['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt']; // 替换为您的 Wxpusher 用户 ID 数组
+
+    // 创建请求体
+    const data = {
+        appToken: wxpusherAppToken,
+        content: '请挪车，谢谢！',
+        uids: wxpusherUIDs
+    };
+
+    // 使用 Fetch API 调用 Wxpusher API
+    fetch('https://wxpusher.zjiecode.com/api/send/message', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.code === 200) {
+            alert('微信通知已发送！');
+        } else {
+            alert('发送失败：' + result.msg);
+        }
+    })
+    .catch(error => {
+        console.error('错误:', error);
+        alert('发送失败，请检查网络或配置。');
+    });
 };
 </script>
 
