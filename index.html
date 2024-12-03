@@ -6,61 +6,32 @@
     <title>挪车信息</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        input { padding: 10px; font-size: 16px; width: calc(100% - 22px); margin-bottom: 10px; }
+        #vehicle-info { margin-top: 20px; }
         button { padding: 10px 15px; font-size: 16px; margin-top: 10px; }
-        #vehicle-info { margin-top: 20px; display: none; }
     </style>
 </head>
 <body>
 
 <h1>挪车信息</h1>
-<label for="plate">车牌号:</label>
-<input type="text" id="plate" placeholder="鲁J9Y561"><br>
-<label for="phone">手机号:</label>
-<input type="text" id="phone" placeholder="13465382753"><br>
-<button id="submit">提交信息</button>
 
 <div id="vehicle-info">
     <h2>车辆信息</h2>
-    <p id="info"></p>
+    <p id="info">车牌号：鲁J9Y561，手机号：13465382753</p>
     <button id="call">一键呼叫</button>
     <button id="sms">发送短信通知</button>
 </div>
 
 <script>
-// 提交信息
-document.getElementById('submit').onclick = function() {
-    const plate = document.getElementById('plate').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-
-    if (!plate || !phone) {
-        alert("请填写车牌号和手机号！");
-        return;
-    }
-
-    // 显示车辆信息
-    document.getElementById('info').innerText = `车牌号：${plate}，手机号：${phone}`;
-    document.getElementById('vehicle-info').style.display = 'block';
-};
-
 // 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = document.getElementById('phone').value.trim();
-    if (phone) {
-        window.location.href = `tel:${phone}`;
-    } else {
-        alert("未找到有效的手机号！");
-    }
+    const phone = "13800138000"; // 直接使用手机号
+    window.location.href = `tel:${phone}`;
 };
 
 // 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = document.getElementById('phone').value.trim();
-    if (phone) {
-        window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
-    } else {
-        alert("未找到有效的手机号！");
-    }
+    const phone = "13800138000"; // 直接使用手机号
+    window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
 };
 </script>
 
