@@ -5,32 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>挪车信息</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        #vehicle-info { margin-top: 20px; }
-        button { padding: 10px 15px; font-size: 16px; margin-top: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column; /* 垂直排列 */
+        }
+        button {
+            background-color: #28a745; /* 绿色主题色 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px; /* 增加按钮大小 */
+            font-size: 16px; /* 增加字体大小 */
+            cursor: pointer;
+            margin-bottom: 10px; /* 按钮之间的间隔 */
+            transition: background-color 0.3s; /* 添加过渡效果 */
+        }
+        button:hover {
+            background-color: #218838; /* 悬停时变深的绿色 */
+        }
     </style>
 </head>
 <body>
 
-<h1>挪车信息</h1>
-
-<div id="vehicle-info">
-    <h2>车辆信息</h2>
-    <p id="info">车牌号：鲁J9Y561，手机号：13465382753</p>
-    <button id="call">一键呼叫</button>
-    <button id="sms">发送短信通知</button>
+<div class="card">
+    <h1>挪车信息</h1>
+    <p id="info">车牌号：京A12345<br>手机号：13800138000</p>
+    <div class="button-container">
+        <button id="call">一键呼叫</button>
+        <button id="sms">发送短信通知</button>
+    </div>
 </div>
 
 <script>
 // 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = "13465382753"; // 直接使用手机号
+    const phone = "13800138000"; // 直接使用手机号
     window.location.href = `tel:${phone}`;
 };
 
 // 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = "13465382753"; // 直接使用手机号
+    const phone = "13800138000"; // 直接使用手机号
     window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
 };
 </script>
