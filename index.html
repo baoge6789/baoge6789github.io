@@ -25,12 +25,6 @@
 
 <div id="qrcode"></div>
 
-<div id="action-buttons">
-    <p id="vehicle-info"></p>
-    <button id="call">一键呼叫</button>
-    <button id="sms">发送短信通知</button>
-</div>
-
 <script>
 // 生成二维码
 document.getElementById('generate').onclick = function() {
@@ -43,7 +37,14 @@ document.getElementById('generate').onclick = function() {
     }
 
     // 使用特定格式生成二维码内容
-    const content = `plate:${plate};phone:${phone}`;
+    const content = JSON.stringify({
+        plate: plate,
+        phone: phone,
+        action: {
+            call: `tel:${phone}`,
+            sms: `sms:${phone}?body=请挪车，谢谢！`
+        }
+    });
     
     // 清空之前的二维码
     document.getElementById('qrcode').innerHTML = '';
@@ -54,62 +55,22 @@ document.getElementById('generate').onclick = function() {
         width: 200,
         height: 200
     });
-
-    // 显示操作按钮和车辆信息
-    document.getElementById('action-buttons').style.display = 'block';
-};
-
-// 一键呼叫
-document.getElementById('call').onclick = function() {
-    const phone = document.getElementById('phone').value.trim();
-    if (phone) {
-        window.location.href = `tel:${phone}`;
-    } else {
-        alert("未找到有效的手机号！");
-    }
-};
-
-// 发送短信通知
-document.getElementById('sms').onclick = function() {
-    const phone = document.getElementById('phone').value.trim();
-    if (phone) {
-        window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
-    } else {
-        alert("未找到有效的手机号！");
-    }
 };
 
 // 模拟扫码后的处理（实际应用中需使用二维码扫描器）
-function simulateQRCodeScan(qrContent) {
-    const [plateInfo, phoneInfo] = qrContent.split(';');
-    
-    const plate = plateInfo.split(':')[1];
-    const phone = phoneInfo.split(':')[1];
+function handleQRCodeScan(qrContent) {
+    const data = JSON.parse(qrContent);
 
     // 显示车辆信息
-    document.getElementById('vehicle-info').innerText = `车牌号：${plate}，手机号：${phone}`;
+    alert(`车牌号：${data.plate}\n手机号：${data.phone}`);
 
-    // 显示操作按钮
-    document.getElementById('action-buttons').style.display = 'block';
+    // 提供一键呼叫和发送短信通知的功能
+    if (confirm("是否拨打电话？")) {
+        window.location.href = data.action.call;
+    } else if (confirm("是否发送短信通知？")) {
+        window.location.href = data.action.sms;
+    }
 }
 
 // 示例：模拟扫码后的调用（在实际应用中，这个函数会由扫码器调用）
-document.getElementById('call').onclick = function() {
-   const plate = document.getElementById('plate').value.trim();
-   const phone = document.getElementById('phone').value.trim();
-   if (plate && phone) {
-       simulateQRCodeScan(`plate:${plate};phone:${phone}`);
-   }
-};
-
-document.getElementById('sms').onclick = function() {
-   const plate = document.getElementById('plate').value.trim();
-   const phone = document.getElementById('phone').value.trim();
-   if (plate && phone) {
-       simulateQRCodeScan(`plate:${plate};phone:${phone}`);
-   }
-};
-</script>
-
-</body>
-</html>
+document.addEventListener('DOMContentLoaded', func
