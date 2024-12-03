@@ -32,6 +32,7 @@
 </div>
 
 <script>
+// 生成二维码
 document.getElementById('generate').onclick = function() {
     const plate = document.getElementById('plate').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -54,8 +55,31 @@ document.getElementById('generate').onclick = function() {
         height: 200
     });
 
-    // 显示操作按钮
+    // 显示操作按钮和车辆信息
     document.getElementById('action-buttons').style.display = 'block';
-    
-    // 显示车辆信息
-    document.getElementById('vehicle-info').innerText =
+    document.getElementById('vehicle-info').innerText = `车牌号：${plate}，手机号：${phone}`;
+};
+
+// 一键呼叫
+document.getElementById('call').onclick = function() {
+    const phone = document.getElementById('phone').value.trim();
+    if (phone) {
+        window.location.href = `tel:${phone}`;
+    } else {
+        alert("未找到有效的手机号！");
+    }
+};
+
+// 发送短信通知
+document.getElementById('sms').onclick = function() {
+    const phone = document.getElementById('phone').value.trim();
+    if (phone) {
+        window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
+    } else {
+        alert("未找到有效的手机号！");
+    }
+};
+</script>
+
+</body>
+</html>
