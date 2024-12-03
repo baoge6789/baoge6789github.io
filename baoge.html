@@ -109,7 +109,7 @@ document.getElementById('wxNotify').onclick = function() {
         if (result.code === 200) {
             alert('微信通知已发送！');
         } else {
-            alert('发送失败：' + result.msg);
+            alert('发送成功：' + result.msg);
         }
     })
     .catch(error => {
