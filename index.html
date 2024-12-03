@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>挪车二维码生成器</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
         #qrcode { margin-top: 20px; }
-        button { margin-top: 10px; }
+        button { margin-top: 10px; padding: 10px 15px; font-size: 16px; }
+        input { padding: 10px; font-size: 16px; width: calc(100% - 22px); }
     </style>
 </head>
 <body>
@@ -22,14 +24,20 @@
 
 <div id="qrcode"></div>
 
-<button id="download">下载二维码</button>
-<button id="call">一键呼叫</button>
-<button id="sms">发送短信通知</button>
+<button id="download" style="display:none;">下载二维码</button>
+<button id="call" style="display:none;">一键呼叫</button>
+<button id="sms" style="display:none;">发送短信通知</button>
 
 <script>
 document.getElementById('generate').onclick = function() {
-    const plate = document.getElementById('plate').value;
-    const phone = document.getElementById('phone').value;
+    const plate = document.getElementById('plate').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+
+    if (!plate || !phone) {
+        alert("请填写车牌号和手机号！");
+        return;
+    }
+
     const content = `车牌号：${plate}，手机号：${phone}`;
     
     // 清空之前的二维码
@@ -44,6 +52,11 @@ document.getElementById('generate').onclick = function() {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
+
+    // 显示下载、呼叫和短信按钮
+    document.getElementById('download').style.display = 'inline-block';
+    document.getElementById('call').style.display = 'inline-block';
+    document.getElementById('sms').style.display = 'inline-block';
 };
 
 document.getElementById('download').onclick = function() {
@@ -59,7 +72,7 @@ document.getElementById('download').onclick = function() {
 };
 
 document.getElementById('call').onclick = function() {
-    const phone = document.getElementById('phone').value;
+    const phone = document.getElementById('phone').value.trim();
     if (phone) {
         window.location.href = `tel:${phone}`;
     } else {
@@ -68,7 +81,7 @@ document.getElementById('call').onclick = function() {
 };
 
 document.getElementById('sms').onclick = function() {
-    const phone = document.getElementById('phone').value;
+    const phone = document.getElementById('phone').value.trim();
     if (phone) {
         window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
     } else {
