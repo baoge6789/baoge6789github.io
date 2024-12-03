@@ -109,12 +109,12 @@ document.getElementById('wxNotify').onclick = function() {
         if (result.code === 200) {
             alert('微信通知已发送！');
         } else {
-            alert('发送成功：' + result.msg);
+            alert('发送检测：' + result.msg);
         }
     })
     .catch(error => {
         console.error('错误:', error);
-        alert('发送失败，请检查网络或配置。');
+        alert('发送检测，请检查网络或配置。');
     });
 };
 </script>
