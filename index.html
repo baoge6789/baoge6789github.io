@@ -11,6 +11,7 @@
         #qrcode { margin-top: 20px; }
         button { margin-top: 10px; padding: 10px 15px; font-size: 16px; }
         input { padding: 10px; font-size: 16px; width: calc(100% - 22px); }
+        #action-buttons { display: none; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -24,9 +25,10 @@
 
 <div id="qrcode"></div>
 
-<button id="download" style="display:none;">下载二维码</button>
-<button id="call" style="display:none;">一键呼叫</button>
-<button id="sms" style="display:none;">发送短信通知</button>
+<div id="action-buttons">
+    <button id="call">一键呼叫</button>
+    <button id="sms">发送短信通知</button>
+</div>
 
 <script>
 document.getElementById('generate').onclick = function() {
@@ -38,7 +40,8 @@ document.getElementById('generate').onclick = function() {
         return;
     }
 
-    const content = `车牌号：${plate}，手机号：${phone}`;
+    // 使用特定格式生成二维码内容
+    const content = `plate:${plate};phone:${phone}`;
     
     // 清空之前的二维码
     document.getElementById('qrcode').innerHTML = '';
@@ -50,41 +53,41 @@ document.getElementById('generate').onclick = function() {
         height: 200
     });
 
-    // 显示下载、呼叫和短信按钮
-    document.getElementById('download').style.display = 'inline-block';
-    document.getElementById('call').style.display = 'inline-block';
-    document.getElementById('sms').style.display = 'inline-block';
+    // 显示操作按钮
+    document.getElementById('action-buttons').style.display = 'block';
 };
 
-document.getElementById('download').onclick = function() {
-    const canvas = document.querySelector('#qrcode canvas');
-    if (canvas) {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = 'qrcode.png';
-        link.click();
-    } else {
-        alert("请先生成二维码！");
-    }
-};
-
+// 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = document.getElementById('phone').value.trim();
+    const phone = getPhoneFromQRCode();
     if (phone) {
         window.location.href = `tel:${phone}`;
     } else {
-        alert("请先输入手机号！");
+        alert("未找到有效的手机号！");
     }
 };
 
+// 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = document.getElementById('phone').value.trim();
+    const phone = getPhoneFromQRCode();
     if (phone) {
         window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
     } else {
-        alert("请先输入手机号！");
+        alert("未找到有效的手机号！");
     }
 };
+
+// 从二维码内容中提取手机号
+function getPhoneFromQRCode() {
+    const plateInput = document.getElementById('plate').value.trim();
+    const phoneInput = document.getElementById('phone').value.trim();
+    
+    if (plateInput && phoneInput) {
+        return phoneInput;
+    }
+    
+    return null;
+}
 </script>
 
 </body>
