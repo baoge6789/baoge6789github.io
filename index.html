@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>挪车二维码生成器</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         #qrcode { margin-top: 20px; }
@@ -44,13 +44,10 @@ document.getElementById('generate').onclick = function() {
     document.getElementById('qrcode').innerHTML = '';
 
     // 生成二维码
-    const qrcode = new QRCode(document.getElementById("qrcode"), {
+    $('#qrcode').qrcode({
         text: content,
         width: 200,
-        height: 200,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
+        height: 200
     });
 
     // 显示下载、呼叫和短信按钮
