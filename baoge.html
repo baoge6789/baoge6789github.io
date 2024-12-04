@@ -77,45 +77,4 @@ document.getElementById('call').onclick = function() {
 };
 
 // 发送短信通知
-document.getElementById('sms').onclick = function() {
-    const phone = "13465382753"; // 直接使用手机号
-    window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
-};
-
-// 微信通知车主
-document.getElementById('wxNotify').onclick = function() {
-    const wxpusherAppToken = 'AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb'; // 替换为您的 Wxpusher 应用令牌
-    const wxpusherUIDs = ['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt']; // 替换为您的 Wxpusher 用户 ID 数组
-
-    // 创建请求体
-    const data = {
-        appToken: wxpusherAppToken,
-        content: '请挪车，谢谢！',
-        uids: wxpusherUIDs
-    };
-
-    // 使用 Fetch API 调用 Wxpusher API
-    fetch('https://wxpusher.zjiecode.com/api/send/message', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.code === 200) {
-            alert('微信通知已发送！');
-        } else {
-            alert('发送检测：' + result.msg);
-        }
-    })
-    .catch(error => {
-        console.error('错误:', error);
-        alert('发送失败，请检查网络或配置。');
-    });
-};
-</script>
-
-</body>
-</html>
+document.getElementById('sms').onclick =
