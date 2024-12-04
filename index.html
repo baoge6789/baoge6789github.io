@@ -78,13 +78,13 @@
 <script>
 // 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = "13465382753"; // 直接使用手机号
+    const phone = "13465382753"; // 确保使用完整手机号
     window.location.href = `tel:${phone}`;
 };
 
 // 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = "13465382753"; // 确保使用完整的手机号
+    const phone = "13465382753"; // 确保使用完整手机号
     const message = encodeURIComponent("请挪车，谢谢！"); // 对消息进行编码以避免特殊字符问题
     window.location.href = `sms:${phone}?body=${message}`; // 确保格式正确
 };
