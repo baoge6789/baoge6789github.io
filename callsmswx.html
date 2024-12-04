@@ -20,66 +20,73 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
-            width: 300px;
+            width: 300px; /* 卡片宽度 */
         }
         h1 {
             font-size: 30px;
-            margin-bottom: 20px; /* 调整标题与按钮之间的间距 */
+            margin-bottom: 20px;
         }
         .info {
-            margin-bottom: 20px; /* 调整图片与标题之间的间距 */
+            margin-bottom: 20px;
         }
         .info img {
-            width: 100%; /* 图片宽度自适应 */
-            height: auto; /* 高度自动 */
-            max-width: 300px; /* 设置最大宽度 */
+            width: 100%;
+            height: auto;
+            max-width: 300px; /* 限制车牌图片最大宽度 */
         }
         .button-container {
             display: flex;
             flex-direction: column; /* 垂直排列 */
         }
         button {
-            background-color: #28a745; /* 绿色主题色 */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 20px; /* 增加按钮大小 */
-            font-size: 20px; /* 增加字体大小 */
-            max-width: 300px; /* 设置最大宽度 */
-            cursor: pointer;
-            margin-bottom: 10px; /* 按钮之间的间隔 */
-            transition: background-color 0.3s; /* 添加过渡效果 */
+            background-color: transparent; /* 背景透明 */
+            border: none; /* 无边框 */
+            cursor: pointer; /* 鼠标指针 */
+            margin-bottom: 30px; /* 按钮之间的间隔 */
+            width: 100%; /* 按钮宽度与卡片宽度一致 */
+            height: 40px; /* 按钮高度 */
+            background-size: contain; /* 背景自适应 */
+            background-repeat: no-repeat; /* 不重复 */
+            background-position: center; /* 水平居中 */
         }
-        button:hover {
-            background-color: #9400D3; /* 悬停时变暗紫色 */
+        #call {
+            background-image: url('https://img.baoge.us.kg/v2/NCP3jLw.gif'); /* 一键呼叫字体图片链接 */
+        }
+        #sms {
+            background-image: url('https://img.baoge.us.kg/v2/iH8Ogoo.gif'); /* 短信通知字体图片链接 */
+        }
+        #wxNotify {
+            background-image: url('https://img.baoge.us.kg/v2/IRJ0Ahd.gif'); /* 微信通知字体图片链接 */
         }
     </style>
 </head>
 <body>
 
 <div class="card">
+    
     <div class="info">
-        <img src="https://img.baoge.us.kg/v2/0rN5ulk.jpeg" alt="车牌号：鲁J9Y561"> <!-- 替换为车牌号图片路径 -->
+        <img src="https://img.baoge.us.kg/v2/0rN5ulk.jpeg" alt="车牌号：鲁J9Y561">
+        <h1>💜联系方式💜</h1>
     </div>
-    <h1>💜挪车信息💜</h1>
     <div class="button-container">
-        <button id="call">一键呼叫</button>
-        <button id="sms">短信通知</button>
-        <button id="wxNotify">微信通知</button> <!-- 新增按钮 -->
+        <button id="call"></button>
+        <button id="sms"></button>
+        <button id="wxNotify"></button>
     </div>
 </div>
 
 <script>
 // 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = "13465382753"; // 直接使用手机号
+    const phone = "13465382753"; // 确保使用完整手机号
     window.location.href = `tel:${phone}`;
 };
 
 // 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = "13465382753"; // 直接使用手机号
-    window.location.href = `sms:${phone}?body=请挪车，谢谢！`;
+    const phone = "13465382753"; // 确保使用完整手机号
+    const message = encodeURIComponent("请挪车，谢谢！"); // 对消息进行编码以避免特殊字符问题
+    window.location.href = `sms:${phone}?body=${message}`; // 确保格式正确
 };
 
 // 微信通知车主
@@ -87,14 +94,12 @@ document.getElementById('wxNotify').onclick = function() {
     const wxpusherAppToken = 'AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb'; // 替换为您的 Wxpusher 应用令牌
     const wxpusherUIDs = ['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt']; // 替换为您的 Wxpusher 用户 ID 数组
 
-    // 创建请求体
     const data = {
         appToken: wxpusherAppToken,
         content: '请挪车，谢谢！',
         uids: wxpusherUIDs
     };
 
-    // 使用 Fetch API 调用 Wxpusher API
     fetch('https://wxpusher.zjiecode.com/api/send/message', {
         method: 'POST',
         headers: {
