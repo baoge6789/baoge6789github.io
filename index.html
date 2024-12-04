@@ -13,7 +13,6 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-
         }
         .card {
             background-color: Beige;
@@ -24,35 +23,43 @@
             width: 300px;
         }
         h1 {
-            font-size:30px;
+            font-size: 30px;
             margin-bottom: 20px;
         }
         .info {
             margin-bottom: 20px;
         }
         .info img {
-            width: 100%; /* 图片宽度自适应 */
-            height: auto; /* 高度自动 */
-            max-width: 300px; /* 设置最大宽度 */
+            width: 100%;
+            height: auto;
+            max-width: 300px;
         }
         .button-container {
             display: flex;
             flex-direction: column; /* 垂直排列 */
         }
         button {
-            background-color: #28a745; /* 绿色主题色 */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 20px; /* 增加按钮大小 */
-            font-size: 20px; /* 增加字体大小 */
-            max-width:300px; /* 设置最大宽度 */
-            cursor: pointer;
+            background-color: transparent; /* 背景透明 */
+            border: none; /* 无边框 */
+            cursor: pointer; /* 鼠标指针 */
             margin-bottom: 10px; /* 按钮之间的间隔 */
-            transition: background-color 0.3s; /* 添加过渡效果 */
+            width: 100%; /* 按钮宽度 */
+            height: 60px; /* 按钮高度 */
         }
-        button:hover {
-            background-color: #9400D3; /* 悬停时变暗紫色 */
+        #call {
+            background-image: url('https://img.baoge.us.kg/v2/NCP3jLw.gif'); /* 替换为一键呼叫字体图片链接 */
+            background-size: contain; /* 背景自适应 */
+            background-repeat: no-repeat; /* 不重复 */
+        }
+        #sms {
+            background-image: url('链接到短信通知字体图片'); /* 替换为短信通知字体图片链接 */
+            background-size: contain; /* 背景自适应 */
+            background-repeat: no-repeat; /* 不重复 */
+        }
+        #wxNotify {
+            background-image: url('链接到微信通知字体图片'); /* 替换为微信通知字体图片链接 */
+            background-size: contain; /* 背景自适应 */
+            background-repeat: no-repeat; /* 不重复 */
         }
     </style>
 </head>
@@ -61,14 +68,13 @@
 <div class="card">
     
     <div class="info">
-        <img src="https://img.baoge.us.kg/v2/0rN5ulk.jpeg" alt="车牌号：鲁J9Y561"> <!-- 替换为车牌号图片路径 -->
+        <img src="https://img.baoge.us.kg/v2/0rN5ulk.jpeg" alt="车牌号：鲁J9Y561">
         <h1>💜联系方式💜</h1>
-        
     </div>
     <div class="button-container">
         <button id="call">一键呼叫</button>
         <button id="sms">短信通知</button>
-        <button id="wxNotify">微信通知</button> <!-- 新增按钮 -->
+        <button id="wxNotify">微信通知</button>
     </div>
 </div>
 
@@ -90,14 +96,12 @@ document.getElementById('wxNotify').onclick = function() {
     const wxpusherAppToken = 'AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb'; // 替换为您的 Wxpusher 应用令牌
     const wxpusherUIDs = ['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt']; // 替换为您的 Wxpusher 用户 ID 数组
 
-    // 创建请求体
     const data = {
         appToken: wxpusherAppToken,
         content: '请挪车，谢谢！',
         uids: wxpusherUIDs
     };
 
-    // 使用 Fetch API 调用 Wxpusher API
     fetch('https://wxpusher.zjiecode.com/api/send/message', {
         method: 'POST',
         headers: {
