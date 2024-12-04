@@ -65,7 +65,7 @@
 <div class="card">
     
     <div class="info">
-        <img src="https://img.baoge.us.kg/v2/0rN5ulk.jpeg" alt="车牌号：鲁J9Y561">
+        <img src="https://img.baoge.us.kg/v2/0rN5ulk" alt="车牌号：鲁J">
         <h1>💜联系方式💜</h1>
     </div>
     <div class="button-container">
@@ -78,21 +78,21 @@
 <script>
 // 一键呼叫
 document.getElementById('call').onclick = function() {
-    const phone = "13465382753"; // 确保使用完整手机号
+    const phone = "134"; // 确保使用完整手机号
     window.location.href = `tel:${phone}`;
 };
 
 // 发送短信通知
 document.getElementById('sms').onclick = function() {
-    const phone = "13465382753"; // 确保使用完整手机号
+    const phone = "134"; // 确保使用完整手机号
     const message = encodeURIComponent("请挪车，谢谢！"); // 对消息进行编码以避免特殊字符问题
     window.location.href = `sms:${phone}?body=${message}`; // 确保格式正确
 };
 
 // 微信通知车主
 document.getElementById('wxNotify').onclick = function() {
-    const wxpusherAppToken = 'AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb'; // 替换为您的 Wxpusher 应用令牌
-    const wxpusherUIDs = ['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt']; // 替换为您的 Wxpusher 用户 ID 数组
+    const wxpusherAppToken = 'AT_*******'; // 替换为您的 Wxpusher 应用令牌
+    const wxpusherUIDs = ['UID_*******']; // 替换为您的 Wxpusher 用户 ID 数组
 
     const data = {
         appToken: wxpusherAppToken,
