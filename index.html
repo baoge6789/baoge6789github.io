@@ -42,6 +42,9 @@ document.getElementById('s').onclick=function(){const p="13465382753";const m=en
 // 微信通知车主
 document.getElementById('w').onclick=function(){const a='AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb';const u=['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt'];const d={appToken:a,content:'请挪车，谢谢！',uids:u};fetch('https://wxpusher.zjiecode.com/api/send/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{if(r.code===200){alert('微信通知已发送！');}else{alert('发送检测：'+r.msg);}}).catch(e=>{console.error('错误:',e);alert('发送失败，请检查网络或配置。');});};
 </script>
+   </script>
+         <script defer src="https://fx.baoge666.us.kg/tracker.min.js" data-website-id="宝哥三项通知挪车></script>
+ 
 
 
 </body>
