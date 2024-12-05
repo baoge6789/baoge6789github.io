@@ -5,50 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>挪车信息</title>
     <style>
-        body{font-family:Arial,sans-serif;background-color:#f4f4f4;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
-        .c{background-color:Beige;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);padding:20px;text-align:center;width:300px;}
-        h1{font-size:30px;margin-bottom:20px;}
-        .i{margin-bottom:20px;}
-        .i img{width:100%;height:auto;max-width:300px;}
-        .b{display:flex;flex-direction:column;}
-        button{background-color:transparent;border:none;cursor:pointer;margin-bottom:30px;width:100%;height:40px;background-size:contain;background-repeat:no-repeat;background-position:center;}
-        #c{background-image:url('https://img.baoge.us.kg/v2/NCP3jLw.gif');}
-        #s{background-image:url('https://img.baoge.us.kg/v2/iH8Ogoo.gif');}
-        #w{background-image:url('https://img.baoge.us.kg/v2/IRJ0Ahd.gif');}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: Beige;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px; /* 卡片宽度 */
+        }
+        h1 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+        .info img {
+            width: 100%;
+            height: auto;
+            max-width: 300px; /* 限制车牌图片最大宽度 */
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column; /* 垂直排列 */
+        }
+        button {
+            background-color: transparent; /* 背景透明 */
+            border: none; /* 无边框 */
+            cursor: pointer; /* 鼠标指针 */
+            margin-bottom: 30px; /* 按钮之间的间隔 */
+            width: 100%; /* 按钮宽度与卡片宽度一致 */
+            height: 40px; /* 按钮高度 */
+            background-size: contain; /* 背景自适应 */
+            background-repeat: no-repeat; /* 不重复 */
+            background-position: center; /* 水平居中 */
+        }
+        #call {
+            background-image: url('https://img.baoge.us.kg/v2/NCP3jLw.gif'); /* 一键呼叫字体图片链接 */
+        }
+        #sms {
+            background-image: url('https://img.baoge.us.kg/v2/iH8Ogoo.gif'); /* 短信通知字体图片链接 */
+        }
+        #wxNotify {
+            background-image: url('https://img.baoge.us.kg/v2/IRJ0Ahd.gif'); /* 微信通知字体图片链接 */
+        }
     </style>
-
 </head>
-</script>
-         <script defer src="https://fx.baoge666.us.kg/tracker.min.js" data-website-id="宝哥三项通知挪车></script>
-               
-             
 <body>
 
-<div class="c">
-
-    <div class="i">
+<div class="card">
+    
+    <div class="info">
         <img src="https://img.baoge.us.kg/v2/0rN5ulk.jpeg" alt="车牌号：鲁J9Y561">
         <h1>💜联系方式💜</h1>
     </div>
-    <div class="b">
-        <button id="c"></button>
-        <button id="s"></button>
-        <button id="w"></button>
+    <div class="button-container">
+        <button id="call"></button>
+        <button id="sms"></button>
+        <button id="wxNotify"></button>
     </div>
 </div>
 
 <script>
 // 一键呼叫
-document.getElementById('c').onclick=function(){const p="13465382753";window.location.href=`tel:${p}`;};
+document.getElementById('call').onclick = function() {
+    const phone = "13465382753"; // 确保使用完整手机号
+    window.location.href = `tel:${phone}`;
+};
 
 // 发送短信通知
-document.getElementById('s').onclick=function(){const p="13465382753";const m=encodeURIComponent("请挪车，谢谢！");window.location.href=`sms:${p}?body=${m}`;};
+document.getElementById('sms').onclick = function() {
+    const phone = "13465382753"; // 确保使用完整手机号
+    const message = encodeURIComponent("请挪车，谢谢！"); // 对消息进行编码以避免特殊字符问题
+    window.location.href = `sms:${phone}?body=${message}`; // 确保格式正确
+};
 
 // 微信通知车主
-document.getElementById('w').onclick=function(){const a='AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb';const u=['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt'];const d={appToken:a,content:'请挪车，谢谢！',uids:u};fetch('https://wxpusher.zjiecode.com/api/send/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{if(r.code===200){alert('微信通知已发送！');}else{alert('发送检测：'+r.msg);}}).catch(e=>{console.error('错误:',e);alert('发送失败，请检查网络或配置。');});};
-</script>
-   
+document.getElementById('wxNotify').onclick = function() {
+    const wxpusherAppToken = 'AT_5cbfZQR0kElzvPhjNc68wYAyjj6AM0Cb'; // 替换为您的 Wxpusher 应用令牌
+    const wxpusherUIDs = ['UID_exqQ6mU9lPmsbrbdKhq5nNtXxpNt']; // 替换为您的 Wxpusher 用户 ID 数组
 
+    const data = {
+        appToken: wxpusherAppToken,
+        content: '请挪车，谢谢！',
+        uids: wxpusherUIDs
+    };
+
+    fetch('https://wxpusher.zjiecode.com/api/send/message', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.code === 200) {
+            alert('微信通知已发送！');
+        } else {
+            alert('发送检测：' + result.msg);
+        }
+    })
+    .catch(error => {
+        console.error('错误:', error);
+        alert('发送失败，请检查网络或配置。');
+    });
+};
+</script>
 
 </body>
 </html>
+</script>
+         <script defer src="https://fx.baoge666.us.kg/tracker.min.js" data-website-id="宝哥三项通知挪车></script>
+  
